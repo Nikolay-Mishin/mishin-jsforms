@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8" />
+	<title>Оставить комментарий</title>
+	<link rel="stylesheet" href="libs/normalize-css/normalize.css" />
+	<link rel="stylesheet" href="libs/bootstrap-4-grid/grid.min.css" />
+	<link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;subset=cyrillic-ext" rel="stylesheet">
+</head>
+
+<body class="index-page">
+	<div class="container user-content section-page">
+		<div class="title-2 mb-50">Оставить комментарий</div>
+		<div class="comment-add-block mb-45">
+			<div class="comment-add-block__left">
+				<div class="avatar avatar--small">
+					<img src="img/avatars/avatar.jpg" alt="avatar" />
+				</div>
+			</div>
+			<div class="form__group comment-add-block__right">
+				<h6 class="comment-add-block__right-title">Егор Казаков</h6>
+				<textarea id="add_comment" class="textarea textarea--comment-add" name="add_comment" placeholder="Присоединиться к обсуждению..."></textarea>
+				<a id="button" class="button" href="#">Опубликовать</a>
+			</div>
+		</div>
+		<p>
+			<a href="index.html">Вернуться на главную</a>
+		</p>
+	</div>
+
+	<script src="libs/jquery/jquery.min.js"></script>
+	<script src="js/check-comment.js"></script>
+</body>
+</html>

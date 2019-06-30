@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8" />
+	<title>Вход на сайт</title>
+	<link rel="stylesheet" href="libs/normalize-css/normalize.css" />
+	<link rel="stylesheet" href="libs/bootstrap-4-grid/grid.min.css" />
+	<link rel="stylesheet" href="css/main.css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;subset=cyrillic-ext" rel="stylesheet">
+	<script defer="defer" src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+</head>
+
+<body class="login-page">
+	<div class="login-page-content">
+		<div class="login-page">
+			<div class="header-top pl-50 pt-45 mb-0">
+				<div class="logo">
+					<div class="logo-icon"><i class="far fa-paper-plane"></i></div>
+					<div class="logo_description">
+						<a class="header-logo__title" href="index.html">Супер сайт</a>
+						<a class="header-logo__sub" href="index.html"></a>
+					</div>
+				</div>
+				<div class="header-registration pr-50">
+					<a class="header-registration__link" href="login.html">Вход</a>
+				</div>
+			</div>
+			<div class="login-page-conteiner">
+				<div class="login-form__background">
+					<div class="login-form pt-30 pb-30">
+						<h1 class="text-center login-heading mt-0 pt-0">Регистрация</h1>
+						<form>
+							<!-- <div class="notify notify--error mb-20">Введите email</div>
+							<div class="notify notify--error mb-20">Неверный формат email</div>
+							<div class="notify notify--error mb-20">Введите пароль</div> -->
+							<div class="notify no-paddings">
+								<div class="notify no-radius-bottom notify--error">Данный email уже занят</div>
+								<div class="notify no-radius-top">
+									<p>Используйте другой email чтобы создать новый аккаунт.</p>
+									<p> Или воспользуйтесь
+										<a href="#!">восстановлением пароля </a>, чтобы войти на сайт.</p>
+								</div>
+							</div>
+							<div class="form__group">
+                                <input class="input-form-registration" name="email" type="email" placeholder="Email" />
+                            </div>
+							<div class="form__group">
+                                <input class="input-form-registration" name="password" type="password" placeholder="Пароль" />
+                            </div>
+							<div class="text-center pt-30">
+								<a id="button" class="button button--enter" href="#">Регистрация</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="login-page-footer">
+				<div class="footer__item footer__copyright">
+					<p class="text-center">Создано с <i class="fas fa-heart animation-pulse"></i>в
+						<a href="http://webcademy.ru" target="_blank">
+							<span>WebCademy.ru</span>
+						</a>в 2018 году</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="libs/jquery/jquery.min.js"></script>
+	<script src="js/check-registration.js"></script>
+</body>
+</html>
