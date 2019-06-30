@@ -4,7 +4,8 @@ $(document).ready(function () {
         var isValid = true,
             _button = $('#button'),
             formGroup,
-            tooltip;
+            tooltip,
+            email = 'mail@mail.com';
 
         // Метод инициализации (запуска) модуля
         var init = function () {
@@ -36,7 +37,16 @@ $(document).ready(function () {
                 var input = $(val),
                     value = input.val().trim();
                 formGroup = input.parents('.form__group');
-                var textError = 'Введите ' + input.attr('placeholder').toLowerCase();
+                var textError = 'Введите ' + input.attr('placeholder').toLowerCase(),
+                    dataError = `
+                        <div class="notify no-paddings">
+                            <div class="notify no-radius-bottom notify--error">Данный email уже занят</div>
+                            <div class="notify no-radius-top">
+                                <p>Используйте другой email чтобы создать новый аккаунт.</p>
+                                <p> Или воспользуйтесь
+                                    <a href="#!">восстановлением пароля </a>, чтобы войти на сайт.</p>
+                            </div>
+                        </div>`;
                 tooltip = $('<div class="notify notify--error">' + textError + '</div>');
                 
                 if (value.length === 0) {
@@ -54,8 +64,15 @@ $(document).ready(function () {
                         if (value !== '') {
                             var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
                             if (pattern.test(value)) {
-                                _hideError();
-                                console.log('Email is VALID');
+                                if (value === email) {
+                                    _hideError();
+                                    console.log('Email is VALID');
+                                }
+                                else {
+                                    tooltip = $(dataError);
+                                    _showError();
+                                    console.log('Email is INVALID');
+                                }
                             }
                             else {
                                 textError = 'Неверный формат email';
@@ -84,6 +101,7 @@ $(document).ready(function () {
             console.log('formValidation.isValid = ' + isValid);
             if (isValid === true) {
                 console.log('Sending form!');
+                window.location.replace("success.html");
             }
             else {
                 console.log('Validation FAILED!');

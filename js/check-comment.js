@@ -63,6 +63,7 @@ $(document).ready(function () {
             console.log('formValidation.isValid = ' + isValid);
             if (isValid === true) {
                 console.log('Sending form!');
+                window.location.replace("success.html");
             }
             else {
                 console.log('Validation FAILED!');
