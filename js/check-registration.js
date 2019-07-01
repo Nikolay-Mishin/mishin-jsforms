@@ -1,7 +1,8 @@
 $(document).ready(function () {
 	var check_comment = (function () {
         // Переменные модуля
-        var isValid = true,
+        var form = $('form'),
+            isValid = true,
             _button = $('#button'),
             formGroup,
             tooltip,
@@ -29,8 +30,7 @@ $(document).ready(function () {
             e.preventDefault();
             console.log('private method _validateForm - runs');
 
-            var inputs = $('input, textarea'),
-                valid = true;
+            var inputs = $('input, textarea');
 
             // Loop through each input field
             $.each(inputs, function (i, val) {
@@ -52,7 +52,6 @@ $(document).ready(function () {
                 if (value.length === 0) {
                     // Show errors
                     _showError();
-                    valid = false;
                 }
                 else {
                     _hideError();
@@ -64,22 +63,34 @@ $(document).ready(function () {
                         if (value !== '') {
                             var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
                             if (pattern.test(value)) {
-                                if (value === email) {
-                                    _hideError();
-                                    console.log('Email is VALID');
-                                }
-                                else {
-                                    tooltip = $(dataError);
-                                    _showError();
-                                    console.log('Email is INVALID');
-                                }
+                                inputEmail = value;
+                                _hideError();
+                                console.log('Email is VALID');
                             }
                             else {
                                 textError = 'Неверный формат email';
                                 tooltip = $('<div class="notify notify--error">' + textError + '</div>'),
                                 _showError();
-                                valid = false;
                                 console.log('Email is INVALID');
+                            }
+                        }
+                    }
+                }
+
+                console.log(isValid);
+                if (input.attr('type').toLowerCase() === 'password') {
+                    if (value !== '') {
+                        console.log(inputEmail);
+                        console.log(value);
+                        if (isValid === true) {
+                            if (inputEmail !== email) {
+                                _hideError();
+                                console.log('Email is CORRECT');
+                            }
+                            else {
+                                tooltip = $(dataError);
+                                _showError();
+                                console.log('Email is INCORRECT');
                             }
                         }
                     }
@@ -93,15 +104,13 @@ $(document).ready(function () {
                     _hideError();
                 });
             });
-
-            isValid = valid;
         };
 
         var _sendEmail = function () {
             console.log('formValidation.isValid = ' + isValid);
             if (isValid === true) {
                 console.log('Sending form!');
-                window.location.replace("success.html");
+                // form.submit();
             }
             else {
                 console.log('Validation FAILED!');
@@ -109,17 +118,17 @@ $(document).ready(function () {
         };
 
         var _showError = function () {
-            formGroup.find('.notify--error').remove();
+            isValid = false;
+            formGroup.find('.notify').remove();
             tooltip.appendTo(formGroup);
         };
 
         var _hideError = function () {
-            formGroup.find('.notify--error').remove();
+            formGroup.find('.notify').remove();
         };
 
         // Возвращаем публичные медоты, которые будут доступны снаружи
 		return {
-			isValid,
             init
 		};
 	}());

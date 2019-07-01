@@ -1,12 +1,14 @@
 $(document).ready(function () {
 	var check_comment = (function () {
         // Переменные модуля
-        var isValid = true,
+        var form = $('form'),
+            isValid = true,
             _button = $('#button'),
             formGroup,
             tooltip,
             email = 'mail@mail.com',
-            password = '123';
+            password = '123',
+            inputEmail;
 
         // Метод инициализации (запуска) модуля
         var init = function () {
@@ -30,8 +32,7 @@ $(document).ready(function () {
             e.preventDefault();
             console.log('private method _validateForm - runs');
 
-            var inputs = $('input, textarea'),
-                valid = true;
+            var inputs = $('input, textarea');
 
             // Loop through each input field
             $.each(inputs, function (i, val) {
@@ -42,17 +43,16 @@ $(document).ready(function () {
                     dataError = `
                         <div class="notify no-paddings">
                             <div class="notify no-radius-bottom notify--error">Неверный email или пароль</div>
-                                <div class="notify no-radius-top">
-                                    <p>Введите верные данные для входа или воспользуйтесь
-                                        <a href="#!">восстановлением пароля </a>, чтобы войти на сайт.</p>
-                                </div>
+                            <div class="notify no-radius-top">
+                                <p>Введите верные данные для входа или воспользуйтесь
+                                    <a href="#!">восстановлением пароля </a>, чтобы войти на сайт.</p>
+                            </div>
                         </div>`;
                 tooltip = $('<div class="notify notify--error">' + textError + '</div>');
                 
                 if (value.length === 0) {
                     // Show errors
                     _showError();
-                    valid = false;
                 }
                 else {
                     _hideError();
@@ -64,36 +64,34 @@ $(document).ready(function () {
                         if (value !== '') {
                             var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
                             if (pattern.test(value)) {
-                                if (value === email) {
-                                    _hideError();
-                                    console.log('Email is VALID');
-                                }
-                                else {
-                                    tooltip = $(dataError);
-                                    _showError();
-                                    console.log('Email is INVALID');
-                                }
+                                inputEmail = value;
+                                _hideError();
+                                console.log('Email is VALID');
                             }
                             else {
                                 textError = 'Неверный формат email';
                                 tooltip = $('<div class="notify notify--error">' + textError + '</div>'),
                                 _showError();
-                                valid = false;
                                 console.log('Email is INVALID');
                             }
                         }
                     }
+                }
 
-                    if (input.attr('type').toLowerCase() === 'password') {
-                        if (value !== '') {
-                            if (value === password) {
+                console.log(isValid);
+                if (input.attr('type').toLowerCase() === 'password') {
+                    if (value !== '') {
+                        console.log(inputEmail);
+                        console.log(value);
+                        if (isValid === true) {
+                            if (value === password && inputEmail === email) {
                                 _hideError();
-                                console.log('Password is VALID');
+                                console.log('Password and Email is CORRECT');
                             }
                             else {
                                 tooltip = $(dataError);
                                 _showError();
-                                console.log('Password is INVALID');
+                                console.log('Password or Email is INCORRECT');
                             }
                         }
                     }
@@ -107,15 +105,13 @@ $(document).ready(function () {
                     _hideError();
                 });
             });
-
-            isValid = valid;
         };
 
         var _sendEmail = function () {
             console.log('formValidation.isValid = ' + isValid);
             if (isValid === true) {
                 console.log('Sending form!');
-                window.location.replace("success.html");
+                // form.submit();
             }
             else {
                 console.log('Validation FAILED!');
@@ -123,17 +119,18 @@ $(document).ready(function () {
         };
 
         var _showError = function () {
-            formGroup.find('.notify--error').remove();
+            isValid = false;
+            formGroup.find('.notify').remove();
             tooltip.appendTo(formGroup);
         };
 
         var _hideError = function () {
-            formGroup.find('.notify--error').remove();
+            // isValid = true;
+            formGroup.find('.notify').remove();
         };
 
         // Возвращаем публичные медоты, которые будут доступны снаружи
 		return {
-			isValid,
             init
 		};
 	}());
