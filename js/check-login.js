@@ -100,9 +100,11 @@ $(document).ready(function () {
 
                 // Hide errors
                 input.on('focus', function () {
+                    formGroup = input.parents('.form__group');
                     _hideError();
                 });
                 input.on('keydown', function () {
+                    formGroup = input.parents('.form__group');
                     _hideError();
                 });
             });
@@ -128,6 +130,7 @@ $(document).ready(function () {
         var _hideError = function (valid = false) {
             isValid = valid ? valid : isValid;
             formGroup.find('.notify').remove();
+            console.log(formGroup);
         };
 
         // Возвращаем публичные медоты, которые будут доступны снаружи

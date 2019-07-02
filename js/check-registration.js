@@ -99,9 +99,11 @@ $(document).ready(function () {
 
                 // Hide errors
                 input.on('focus', function () {
+                    formGroup = input.parents('.form__group');
                     _hideError();
                 });
                 input.on('keydown', function () {
+                    formGroup = input.parents('.form__group');
                     _hideError();
                 });
             });
