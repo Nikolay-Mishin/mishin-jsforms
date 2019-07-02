@@ -64,7 +64,7 @@ $(document).ready(function () {
                             var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
                             if (pattern.test(value)) {
                                 inputEmail = value;
-                                _hideError();
+                                _hideError(true);
                                 console.log('Email is VALID');
                             }
                             else {
@@ -76,12 +76,12 @@ $(document).ready(function () {
                         }
                     }
                 }
-
-                console.log(isValid);
+                
                 if (input.attr('type').toLowerCase() === 'password') {
                     if (value !== '') {
-                        console.log(inputEmail);
-                        console.log(value);
+                        console.log('postValid = ' + isValid);
+                        console.log('inputEmail = ' + inputEmail);
+                        console.log('value = ' + value);
                         if (isValid === true) {
                             if (inputEmail !== email) {
                                 _hideError();
@@ -93,6 +93,7 @@ $(document).ready(function () {
                                 console.log('Email is INCORRECT');
                             }
                         }
+                        console.log('dataValid = ' + isValid);
                     }
                 }
 
@@ -123,7 +124,8 @@ $(document).ready(function () {
             tooltip.appendTo(formGroup);
         };
 
-        var _hideError = function () {
+        var _hideError = function (valid = false) {
+            isValid = valid ? valid : isValid;
             formGroup.find('.notify').remove();
         };
 
