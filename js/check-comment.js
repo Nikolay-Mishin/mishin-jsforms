@@ -2,6 +2,7 @@ $(document).ready(function () {
 	var check_comment = (function () {
         // Переменные модуля
         var isValid = true,
+            form = $('form'),
             _button = $('#button'),
             formGroup,
             tooltip;
