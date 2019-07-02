@@ -113,7 +113,7 @@ $(document).ready(function () {
             console.log('formValidation.isValid = ' + isValid);
             if (isValid === true) {
                 console.log('Sending form!');
-                // form.submit();
+                form.submit();
             }
             else {
                 console.log('Validation FAILED!');
