@@ -1,142 +1,142 @@
 $(document).ready(function () {
-	var check_comment = (function () {
-        // Переменные модуля
-        var isValid = true,
-            form = $('form'),
-            _button = $('#button'),
-            formGroup,
-            tooltip,
-            email = 'mail@mail.com';
+	var check_registration = (function () {
+		// Переменные модуля
+		var isValid = true,
+			form = $('form'),
+			_button = $('#button'),
+			formGroup,
+			tooltip,
+			email = 'mail@mail.com';
 
-        // Метод инициализации (запуска) модуля
-        var init = function () {
-            _sayHello(); // Запускаем модули которые должны стартовать при запуске модуля
-            _setUpListeners(); // Запускаем прослушку событий
-        };
+		// Метод инициализации (запуска) модуля
+		var init = function () {
+			_sayHello(); // Запускаем модули которые должны стартовать при запуске модуля
+			_setUpListeners(); // Запускаем прослушку событий
+		};
 
-        // Метод прослушки событий
+		// Метод прослушки событий
 		// В нем прослушиваем события на странице, например клики по кнопкам, и при срабатывании события запускаем нужный метод нашего модуля
-        var _setUpListeners = function () {
-            _button.on('click', _validateForm).on('click', _sendEmail);
-        };
+		var _setUpListeners = function () {
+			_button.on('click', _validateForm).on('click', _sendEmail);
+		};
 
-        // Приватные методы
+		// Приватные методы
 
-        var _sayHello = function () {
+		var _sayHello = function () {
 			console.log('Hello from _sayHello()');
 		};
 
-        var _validateForm = function (e) {
-            e.preventDefault();
-            console.log('private method _validateForm - runs');
+		var _validateForm = function (e) {
+			e.preventDefault();
+			console.log('private method _validateForm - runs');
 
-            var inputs = $('input, textarea');
+			var inputs = $('input, textarea');
 
-            // Loop through each input field
-            $.each(inputs, function (i, val) {
-                var input = $(val),
-                    value = input.val().trim();
-                formGroup = input.parents('.form__group');
-                var textError = 'Введите ' + input.attr('placeholder').toLowerCase(),
-                    dataError = `
-                        <div class="notify no-paddings">
-                            <div class="notify no-radius-bottom notify--error">Данный email уже занят</div>
-                            <div class="notify no-radius-top">
-                                <p>Используйте другой email чтобы создать новый аккаунт.</p>
-                                <p> Или воспользуйтесь
-                                    <a href="#!">восстановлением пароля </a>, чтобы войти на сайт.</p>
-                            </div>
-                        </div>`;
-                tooltip = $('<div class="notify notify--error">' + textError + '</div>');
-                
-                if (value.length === 0) {
-                    // Show errors
-                    _showError();
-                }
-                else {
-                    _hideError();
-                }
+			// Loop through each input field
+			$.each(inputs, function (i, val) {
+				var input = $(val),
+					value = input.val().trim();
+				formGroup = input.parents('.form__group');
+				var textError = 'Введите ' + input.attr('placeholder').toLowerCase(),
+					dataError = `
+						<div class="notify no-paddings">
+							<div class="notify no-radius-bottom notify--error">Данный email уже занят</div>
+							<div class="notify no-radius-top">
+								<p>Используйте другой email чтобы создать новый аккаунт.</p>
+								<p> Или воспользуйтесь
+									<a href="#!">восстановлением пароля </a>, чтобы войти на сайт.</p>
+							</div>
+						</div>`;
+				tooltip = $('<div class="notify notify--error">' + textError + '</div>');
+				
+				if (value.length === 0) {
+					// Show errors
+					_showError();
+				}
+				else {
+					_hideError();
+				}
 
-                // Check if input type is 'email', not a textarea, and is Valid email
-                if (!(input.is('textarea'))) {
-                    if (input.attr('type').toLowerCase() === 'email') {
-                        if (value !== '') {
-                            var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
-                            if (pattern.test(value)) {
-                                inputEmail = value;
-                                _hideError(true);
-                                console.log('Email is VALID');
-                            }
-                            else {
-                                textError = 'Неверный формат email';
-                                tooltip = $('<div class="notify notify--error">' + textError + '</div>'),
-                                _showError();
-                                console.log('Email is INVALID');
-                            }
-                        }
-                    }
-                }
-                
-                if (input.attr('type').toLowerCase() === 'password') {
-                    if (value !== '') {
-                        console.log('postValid = ' + isValid);
-                        console.log('inputEmail = ' + inputEmail);
-                        console.log('value = ' + value);
-                        if (isValid === true) {
-                            if (inputEmail !== email) {
-                                _hideError();
-                                console.log('Email is CORRECT');
-                            }
-                            else {
-                                tooltip = $(dataError);
-                                _showError();
-                                console.log('Email is INCORRECT');
-                            }
-                        }
-                        console.log('dataValid = ' + isValid);
-                    }
-                }
+				// Check if input type is 'email', not a textarea, and is Valid email
+				if (!(input.is('textarea'))) {
+					if (input.attr('type').toLowerCase() === 'email') {
+						if (value !== '') {
+							var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+							if (pattern.test(value)) {
+								inputEmail = value;
+								_hideError(true);
+								console.log('Email is VALID');
+							}
+							else {
+								textError = 'Неверный формат email';
+								tooltip = $('<div class="notify notify--error">' + textError + '</div>'),
+								_showError();
+								console.log('Email is INVALID');
+							}
+						}
+					}
+				}
+				
+				if (input.attr('type').toLowerCase() === 'password') {
+					if (value !== '') {
+						console.log('postValid = ' + isValid);
+						console.log('inputEmail = ' + inputEmail);
+						console.log('value = ' + value);
+						if (isValid === true) {
+							if (inputEmail !== email) {
+								_hideError();
+								console.log('Email is CORRECT');
+							}
+							else {
+								tooltip = $(dataError);
+								_showError();
+								console.log('Email is INCORRECT');
+							}
+						}
+						console.log('dataValid = ' + isValid);
+					}
+				}
 
-                // Hide errors
-                input.on('focus', function () {
-                    formGroup = input.parents('.form__group');
-                    _hideError();
-                });
-                input.on('keydown', function () {
-                    formGroup = input.parents('.form__group');
-                    _hideError();
-                });
-            });
-        };
+				// Hide errors
+				input.on('focus', function () {
+					formGroup = input.parents('.form__group');
+					_hideError();
+				});
+				input.on('keydown', function () {
+					formGroup = input.parents('.form__group');
+					_hideError();
+				});
+			});
+		};
 
-        var _sendEmail = function () {
-            console.log('formValidation.isValid = ' + isValid);
-            if (isValid === true) {
-                console.log('Sending form!');
-                form.submit();
-            }
-            else {
-                console.log('Validation FAILED!');
-            }
-        };
+		var _sendEmail = function () {
+			console.log('formValidation.isValid = ' + isValid);
+			if (isValid === true) {
+				console.log('Sending form!');
+				form.submit();
+			}
+			else {
+				console.log('Validation FAILED!');
+			}
+		};
 
-        var _showError = function () {
-            isValid = false;
-            formGroup.find('.notify').remove();
-            tooltip.appendTo(formGroup);
-        };
+		var _showError = function () {
+			isValid = false;
+			formGroup.find('.notify').remove();
+			tooltip.appendTo(formGroup);
+		};
 
-        var _hideError = function (valid = false) {
-            isValid = valid ? valid : isValid;
-            formGroup.find('.notify').remove();
-        };
+		var _hideError = function (valid = false) {
+			isValid = valid ? valid : isValid;
+			formGroup.find('.notify').remove();
+		};
 
-        // Возвращаем публичные медоты, которые будут доступны снаружи
+		// Возвращаем публичные медоты, которые будут доступны снаружи
 		return {
-            init
+			init
 		};
 	}());
 
-    // Запускаем модуль
-    check_comment.init();
+	// Запускаем модуль
+	check_registration.init();
 });
